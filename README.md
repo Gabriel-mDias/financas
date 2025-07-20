@@ -11,11 +11,13 @@ Esta é uma aplicação Java Spring com as seguintes tecnologias utilizadas:
  - Spring Boot 3.5.4
  - Spring Data JPA
  - PostgresSQL
-   - Essa base de dados foi selecionada por ser simples e com bastantes recursos dos quais tenho domínio.
+    - Essa base de dados foi selecionada por ser simples e com bastantes recursos dos quais tenho domínio.
  - Liquibase
-   - Ferramenta para gerir as migrations do banco de dados.
+    - Ferramenta para gerir as migrations do banco de dados.
  - Lombok
-   - Dependência para reduzir o volume de código escrito. A utilização é objetiva.
+    - Dependência para reduzir o volume de código escrito. A utilização é objetiva.
+ - Swagger
+    - Documentação da API e seus endpoints.
 
 # Módulos
 

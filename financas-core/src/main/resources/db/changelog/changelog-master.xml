@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <property name="uuid_function" value="uuid_generate_v4()" dbms="postgresql"/>
+    <changeSet id="001" author="gabriel.magalhaes">
+        <comment>Script para ativar a extensão de UUID no banco Postgres</comment>
+        <sql>
+            CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        </sql>
+    </changeSet>
+    <changeSet id="1752926750" author="gabriel.magalhaes">
+        <createTable tableName="pessoa">
+            <column name="id_pessoa" type="UUID" defaultValueComputed="${uuid_function}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nm_pessoa" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cd_cpf" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nr_telefone" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ds_email" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1752926751" author="gabriel.magalhaes">
+        <createTable tableName="banco">
+            <column name="id_banco" type="UUID" defaultValueComputed="${uuid_function}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nm_banco" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cd_banco" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1752926752" author="gabriel.magalhaes">
+        <createTable tableName="cliente">
+            <column name="id_cliente" type="UUID" defaultValueComputed="${uuid_function}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_pessoa" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dt_criacao" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dt_exclusao" type="TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="cliente"
+                baseColumnNames="id_pessoa"
+                constraintName="fk_cliente_pessoa"
+                referencedTableName="pessoa"
+                referencedColumnNames="id_pessoa"/>
+    </changeSet>
+    <changeSet id="1752926753" author="gabriel.magalhaes">
+        <createTable tableName="conta_bancaria">
+            <column name="id_conta_bancaria" type="UUID" defaultValueComputed="${uuid_function}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_banco" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_cliente" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dt_abertura" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dt_encerramento" type="TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="conta_bancaria"
+                baseColumnNames="id_banco"
+                constraintName="fk_conta_bancaria_banco"
+                referencedTableName="banco"
+                referencedColumnNames="id_banco"/>
+        <addForeignKeyConstraint
+                baseTableName="conta_bancaria"
+                baseColumnNames="id_cliente"
+                constraintName="fk_conta_bancaria_cliente"
+                referencedTableName="cliente"
+                referencedColumnNames="id_cliente"/>
+    </changeSet>
+    <changeSet id="1752928721" author="gabriel.magalhaes">
+        <comment>Populando a base com os bancos brasileiros</comment>
+        <sql>
+            INSERT INTO banco (nm_banco, cd_banco) VALUES
+                ('Banco do Brasil S.A.', '001'),
+                ('Banco da Amazônia S.A.', '003'),
+                ('Banco do Nordeste do Brasil S.A.', '004'),
+                ('Caixa Econômica Federal', '104'),
+                ('Banco Bradesco S.A.', '237'),
+                ('Banco Itaú Unibanco S.A.', '341'),
+                ('Banco Santander (Brasil) S.A.', '033'),
+                ('Banco Safra S.A.', '422'),
+                ('Banco BTG Pactual S.A.', '208'),
+                ('Banco Inter S.A.', '077'),
+                ('Banco Original S.A.', '212'),
+                ('Banco C6 S.A.', '336'),
+                ('Banco Neon S.A.', '735'),
+                ('Banco Pan S.A.', '623'),
+                ('Banco BMG S.A.', '318'),
+                ('Banco Mercantil do Brasil S.A.', '389'),
+                ('Banco Votorantim S.A.', '655'),
+                ('Banrisul - Banco do Estado do Rio Grande do Sul S.A.', '041'),
+                ('Banco ABC Brasil S.A.', '246'),
+                ('Banco Alfa S.A.', '025'),
+                ('Banco Modal S.A.', '746'),
+                ('Nu Pagamentos S.A. (NuBank)', '260'),
+                ('PagSeguro Internet S.A. (PagBank)', '290'),
+                ('Mercado Pago – Mercado Livre', '323'),
+                ('Will Financeira S.A. (Will Bank)', '332'),
+                ('Banco Topázio S.A. (99Pay)', '082'),
+                ('Banco Stone S.A.', '197'),
+                ('Banco BS2 S.A.', '218');
+        </sql>
+    </changeSet>
+</databaseChangeLog>
+

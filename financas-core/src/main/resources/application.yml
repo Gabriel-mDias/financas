@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: financas
+  messages:
+    encoding: UTF-8
+  datasource:
+    url: jdbc:postgresql://${DBMS_SERVER_NAME:localhost}:${DBMS_SERVER_PORT:5432}/${DBMS_DATABASE_NAME:financas_db}
+    username: ${DBMS_USERNAME:postgres}
+    password: ${DBMS_PASSWORD:itix.123}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.xml
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect

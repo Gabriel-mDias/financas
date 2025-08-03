@@ -26,6 +26,7 @@
 		<module>financas-model</module>
 		<module>gems-utils</module>
         <module>gems-exception</module>
+        <module>gems-spring-security</module>
     </modules>
 	<scm>
 		<connection/>

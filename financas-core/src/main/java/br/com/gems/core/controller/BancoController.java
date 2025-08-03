@@ -1,7 +1,6 @@
 package br.com.gems.core.controller;
 
-import br.com.gems.base.BaseController;
-import br.com.gems.core.services.BancoService;
+import br.com.gems.core.service.BancoService;
 import br.com.gems.base.model.dto.BancoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

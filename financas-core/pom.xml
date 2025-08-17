@@ -26,6 +26,11 @@
             <artifactId>gems-exception</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>br.com.gems</groupId>
+            <artifactId>gems-spring-security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!--Módulos externos-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

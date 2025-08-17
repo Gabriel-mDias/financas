@@ -31,7 +31,7 @@ public class User implements UserDetails {
     @Column( name = "ID_USER" )
     private UUID id;
 
-    @Column( name = "NM_USERNAME", nullable = false )
+    @Column( name = "NM_USERNAME", nullable = false, unique = true )
     private String username;
 
     @Column( name = "CD_EMAIL", nullable = false, unique = true )
@@ -52,7 +52,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles()
+        return this.getRoles()
                 .stream()
                 .map( ur -> new SimpleGrantedAuthority( ur.getRole().getCode() ) )
                 .collect( Collectors.toList() );
@@ -60,17 +60,17 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.user.getPassword();
+        return this.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.user.getEmail();
+        return this.getEmail();
     }
 
     @Override
     public boolean isEnabled() {
-        return ObjectUtil.isNullOrEmpty( this.user.getDeleteDate() );
+        return ObjectUtil.isNullOrEmpty( this.getDeleteDate() );
     }
 
     @Override

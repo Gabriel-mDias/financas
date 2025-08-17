@@ -15,9 +15,9 @@ public class UserSecurityService implements UserDetailsService {
     private UserSecurityRepository repository;
 
     @Override
-    public User loadUserByUsername( String email ) throws UsernameNotFoundException {
-        return repository.findByEmail( email )
-                .orElseThrow(() -> new RuntimeException( "Usuário não encontrado." ) );
+    public User loadUserByUsername( String username ) throws SecurityException {
+        return repository.findByUsername( username )
+                .orElseThrow(() -> new SecurityException( "Usuário não encontrado." ) );
     }
 
 }

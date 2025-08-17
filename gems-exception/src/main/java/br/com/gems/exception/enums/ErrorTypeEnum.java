@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorTypeEnum {
 
-    ERROR( "Error" ),
+    ERRO_NAO_ESPERADO( "Erro não esperado" ),
     FALHA( "Falha" ),
     ALERTA( "Alerta" ),
     ;

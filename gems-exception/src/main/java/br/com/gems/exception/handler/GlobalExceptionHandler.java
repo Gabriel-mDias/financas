@@ -7,6 +7,7 @@ import br.com.gems.exception.enums.ErrorTypeEnum;
 import br.com.gems.utils.ObjectUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -15,8 +16,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Implementação "default" da manipulação de exceções. Flexível para
+ * novas implementações customizadas.
+ */
 @Slf4j
 @RestControllerAdvice
+/**
+ * Anotação que permite que os módulos que importem esse, como futuros projetos e
+ * etc possam customizar o seu próprio GlobalExceptionHandler, mas se este Bean
+ * não for encontrado (por isso o nome de conditional on missing bean), este será
+ * a implementação “default” de manipulação de exceções.
+ */
+@ConditionalOnMissingBean( GlobalExceptionHandler.class )
 public class GlobalExceptionHandler {
 
     @ExceptionHandler( Exception.class )
@@ -24,7 +36,21 @@ public class GlobalExceptionHandler {
     public ExceptionResponseDTO handleException( Exception ex, HttpServletRequest request ) {
         var error = ExceptionResponseDTO.builder()
                 .occurenceTime( LocalDateTime.now() )
-                .errorType( ErrorTypeEnum.ERROR )
+                .errorType( ErrorTypeEnum.ERRO_NAO_ESPERADO )
+                .path( request.getServletPath() )
+                .method( request.getMethod() )
+                .build();
+
+        logError( error, request, ex );
+        return error;
+    }
+
+    @ExceptionHandler( SecurityException.class )
+    @ResponseStatus( HttpStatus.UNAUTHORIZED )
+    public ExceptionResponseDTO handleSecurityException( Exception ex, HttpServletRequest request ) {
+        var error = ExceptionResponseDTO.builder()
+                .occurenceTime( LocalDateTime.now() )
+                .errorType( ErrorTypeEnum.FALHA )
                 .path( request.getServletPath() )
                 .method( request.getMethod() )
                 .build();

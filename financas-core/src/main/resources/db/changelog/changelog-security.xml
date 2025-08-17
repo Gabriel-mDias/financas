@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <property name="uuid_function" value="uuid_generate_v4()" dbms="postgresql"/>
+    <changeSet id="000" author="gabriel.magalhaes">
+        <sql>CREATE SCHEMA IF NOT EXISTS security;</sql>
+    </changeSet>
+    <changeSet id="001" author="gabriel.magalhaes">
+        <createTable tableName="ROLE" schemaName="security">
+            <column name="ID_ROLE" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="CD_ROLE" type="VARCHAR">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="DS_ROLE" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="002" author="gabriel.magalhaes">
+        <createTable tableName="USERS" schemaName="security">
+            <column name="ID_USER" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NM_USERNAME" type="VARCHAR">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="CD_EMAIL" type="VARCHAR">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="CD_PASSWORD" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DT_CREATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DT_DELETED" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="003" author="gabriel.magalhaes">
+        <createTable tableName="USER_ROLE" schemaName="security">
+            <column name="ID_USER_ROLE" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ID_USER" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ID_ROLE" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DT_CREATED" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DT_DELETED" type="TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="USER_ROLE"
+                baseTableSchemaName="security"
+                baseColumnNames="ID_USER"
+                constraintName="FK_USER_ROLE_USER"
+                referencedTableName="USERS"
+                referencedTableSchemaName="security"
+                referencedColumnNames="ID_USER"/>
+
+        <addForeignKeyConstraint
+                baseTableName="USER_ROLE"
+                baseTableSchemaName="security"
+                baseColumnNames="ID_ROLE"
+                constraintName="FK_USER_ROLE_ROLE"
+                referencedTableName="ROLE"
+                referencedTableSchemaName="security"
+                referencedColumnNames="ID_ROLE"/>
+    </changeSet>
+</databaseChangeLog>
+

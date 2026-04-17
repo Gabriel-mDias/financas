@@ -75,5 +75,27 @@
                 referencedTableSchemaName="security"
                 referencedColumnNames="ID_ROLE"/>
     </changeSet>
+    <changeSet id="004" author="gabriel.magalhaes">
+        <insert schemaName="security" tableName="ROLE">
+            <column name="ID_ROLE" valueComputed="gen_random_uuid()"/>
+            <column name="CD_ROLE" value="ADMIN"/>
+            <column name="DS_ROLE" value="Administrador do Sistema"/>
+        </insert>
+        <insert schemaName="security" tableName="ROLE">
+            <column name="ID_ROLE" valueComputed="gen_random_uuid()"/>
+            <column name="CD_ROLE" value="CLIENTE"/>
+            <column name="DS_ROLE" value="Gerenciamento de Clientes"/>
+        </insert>
+        <insert schemaName="security" tableName="ROLE">
+            <column name="ID_ROLE" valueComputed="gen_random_uuid()"/>
+            <column name="CD_ROLE" value="BANCO"/>
+            <column name="DS_ROLE" value="Gerenciamento de Bancos"/>
+        </insert>
+        <insert schemaName="security" tableName="ROLE">
+            <column name="ID_ROLE" valueComputed="gen_random_uuid()"/>
+            <column name="CD_ROLE" value="CONTA"/>
+            <column name="DS_ROLE" value="Gerenciamento de Contas Bancárias"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
 

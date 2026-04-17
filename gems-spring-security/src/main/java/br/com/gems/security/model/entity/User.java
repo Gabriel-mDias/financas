@@ -10,11 +10,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -58,9 +60,19 @@ public class User implements UserDetails {
                 .collect( Collectors.toList() );
     }
 
+    public List<String> getRolesCode(){
+        if( this.roles == null ){
+            return new ArrayList<>();
+        }
+
+        return this.roles.stream()
+                .map( ur -> ur.getRole().getCode() )
+                .collect( Collectors.toList() );
+    }
+
     @Override
     public String getPassword() {
-        return this.getPassword();
+        return this.password;
     }
 
     @Override

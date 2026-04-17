@@ -6,4 +6,8 @@ public class SecurityException extends RuntimeException {
     super(message);
   }
 
+  public SecurityException(String message, Throwable e){
+    super(message, e);
+  }
+
 }

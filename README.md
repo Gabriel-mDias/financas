@@ -100,3 +100,7 @@ Ao iniciar a aplicação, o **Liquibase** se encarregará de criar as tabelas e 
 
 Após a inicialização completa, você poderá acessar a documentação dos endpoints via **Swagger** através da URL (geralmente):
 `http://localhost:8080/swagger-ui.html` ou `http://localhost:8080/swagger-ui/index.html` (dependendo das configurações do `application.yml`).
+
+# Observações
+
+Como não há um interesse real em tornar este projeto em um produto de fato, as informações de senhas e outras sensíveis estão anexadas neste repositório, sendo isso claramente uma péssima prática, mas não é o meu interesse no momento, lidar neste nível de segurança para um projeto local.

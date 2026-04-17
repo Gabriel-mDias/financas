@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:16-alpine
+    container_name: gems-postgresserver
+    environment:
+      POSTGRES_USER: gems.postgres
+      POSTGRES_PASSWORD: gems@123!
+      POSTGRES_DB: financas_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+    name: gems-containers-20260411

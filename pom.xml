@@ -26,6 +26,7 @@
 		<module>financas-model</module>
 		<module>gems-utils</module>
         <module>gems-exception</module>
+        <module>gems-spring-security</module>
     </modules>
 	<scm>
 		<connection/>
@@ -68,4 +69,22 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>

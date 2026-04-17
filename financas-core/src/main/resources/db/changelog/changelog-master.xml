@@ -12,6 +12,7 @@
             CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
         </sql>
     </changeSet>
+    <include file="classpath:db/changelog/changelog-security.xml"/>
     <changeSet id="1752926750" author="gabriel.magalhaes">
         <createTable tableName="pessoa">
             <column name="id_pessoa" type="UUID" defaultValueComputed="${uuid_function}">

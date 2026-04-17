@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 public class ExceptionResponseDTO {
 
-    private LocalDateTime occurenceTime;
+    private LocalDateTime occurrenceTime;
     private ErrorTypeEnum errorType;
     private String message;
     private String path;
@@ -22,7 +22,7 @@ public class ExceptionResponseDTO {
     public String toString() {
         return new StringBuilder()
                 .append( "An error occurred at: " )
-                .append( this.occurenceTime )
+                .append( this.occurrenceTime)
                 .append( " with status: " )
                 .append( this.errorType.name() )
                 .append( " and message: " )

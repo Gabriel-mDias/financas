@@ -4,15 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public enum ErrorTypeEnum {
 
-    ERROR( "Error" ),
+    ERRO_NAO_ESPERADO( "Erro não esperado" ),
     FALHA( "Falha" ),
     ALERTA( "Alerta" ),
     ;
 
     private String description;
+
+    private ErrorTypeEnum( String description ) {
+        this.description = description;
+    }
 
 
 }

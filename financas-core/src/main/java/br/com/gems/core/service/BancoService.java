@@ -1,4 +1,4 @@
-package br.com.gems.core.services;
+package br.com.gems.core.service;
 
 import br.com.gems.core.repository.BancoRepository;
 import br.com.gems.base.model.dto.BancoDTO;

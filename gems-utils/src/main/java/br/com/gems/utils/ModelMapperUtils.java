@@ -12,11 +12,11 @@ public class ModelMapperUtils {
                 .setPropertyCondition( context -> !isAEntity( context ) || !isAEntityNotInitialized( context.getSource() ) );
     }
 
-    private boolean isAEntity( Object source ) {
+    private static boolean isAEntity( Object source ) {
         return source instanceof PersistentCollection;
     }
 
-    private boolean isAEntityNotInitialized( Object source ) {
+    private static boolean isAEntityNotInitialized( Object source ) {
         return isAEntity(source) && !((PersistentCollection)source).wasInitialized();
     }
 
